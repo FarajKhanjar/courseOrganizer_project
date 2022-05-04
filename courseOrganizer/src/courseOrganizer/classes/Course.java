@@ -51,13 +51,14 @@ public class Course
 		this.schoolName = schoolName;
 	}
 
-
-	
-	public void  printCoursesData() 
-	{
-		System.out.println("[name=" + name + ", numberId=" + numberId + ", schoolName=" + schoolName + ", grade=" + grade+ "]");
-
+	@Override
+	public String toString() {
+		return "Course [name=" + name + ", numberId=" + numberId + ", schoolName=" + schoolName + ", grade=" + grade
+				+ "]\n";
 	}
+
+
+
 	
 	
 

@@ -1,5 +1,6 @@
 package courseOrganizer.classes;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -8,53 +9,46 @@ public class Runner
 {
 	public static void main(String[] args) 
 	{
-		HashMap<String, Double> courses = new HashMap<>();
+		HashMap<Integer, Course> courses = new HashMap<>();
          
         //courses = inputCoursesData();
         courses = hardcodedCoursesData();
         
         // Print Courses data
         System.out.println("Courses data:");
-        double sum = 0.0;
-        
-        for (Map.Entry<String, Double> oneCourse : courses.entrySet()) 
-        {
-            System.out.println(oneCourse.getKey() + " (" + oneCourse.getValue() + ")");
-            sum += oneCourse.getValue();
-        }
+        int userId = 123;
+        User user_1 = new User(userId,courses);
+      
+        double avg = user_1.averageScore();
+        double standardDeviation = user_1.calculateSD(courses);
 
-        double avg = sum / courses.size();
-        double standardDeviation = calculateSD(courses);
-        
-       // int userId = 123;
-       // User user_1 = new User(userId,courses);
-       // System.out.println(user_1);
+        System.out.println(user_1);
         System.out.println("Average grade: " + avg);
         System.out.println("Standard deviation: " + standardDeviation);
     }
 	
-	public static HashMap<String, Double> hardcodedCoursesData()
+	public static HashMap<Integer, Course> hardcodedCoursesData()
 	{
-		HashMap<String, Double> courses = new HashMap<>();
+		HashMap<Integer, Course> courses = new HashMap<>();
 		
-        Course myCourse_1 = new Course("Java",12,"BJN",100);
-        Course myCourse_2 = new Course("Phyton",50,"TAU",90);
-        Course myCourse_3 = new Course("C++",51,"Experss",85);
-        Course myCourse_4 = new Course("C#",15,"Open Unv.",70);
-        Course myCourse_5 = new Course("Matlab",100,"TAU",60);
+        Course myCourse_1 = new Course("Java",5,"BJN",100);
+        Course myCourse_2 = new Course("Phyton",1,"TAU",90);
+        Course myCourse_3 = new Course("C++",2,"Experss",85);
+        Course myCourse_4 = new Course("C#",4,"Open Unv.",70);
+        Course myCourse_5 = new Course("Matlab",3,"TAU",60);
         
-        courses.put(myCourse_1.getName() ,myCourse_1.getGrade());
-        courses.put(myCourse_2.getName() ,myCourse_2.getGrade());
-        courses.put(myCourse_3.getName() ,myCourse_3.getGrade());
-        courses.put(myCourse_4.getName() ,myCourse_4.getGrade());
-        courses.put(myCourse_5.getName() ,myCourse_5.getGrade());
+        courses.put(myCourse_1.getNumberId() ,myCourse_1);
+        courses.put(myCourse_2.getNumberId() ,myCourse_2);
+        courses.put(myCourse_3.getNumberId() ,myCourse_3);
+        courses.put(myCourse_4.getNumberId() ,myCourse_4);
+        courses.put(myCourse_5.getNumberId() ,myCourse_5);
         
         return courses;
 	}
 	
-	public static HashMap<String, Double> inputCoursesData()
+	public static HashMap<Integer, Course> inputCoursesData()
 	{
-		HashMap<String, Double> courses = new HashMap<>();
+		HashMap<Integer, Course> courses = new HashMap<>();
         Scanner sc = new Scanner(System.in);
         String newCourse;
 	    System.out.println("Enter your course data (or ENTER to finish):");
@@ -77,7 +71,7 @@ public class Runner
                 double newGrade = sc.nextDouble(); 
                 
                 Course myCourse = new Course(newCourse,newId,schoolName,newGrade);     
-                courses.put(newCourse,newGrade);
+                courses.put(newId,myCourse);
 
                 sc.nextLine();
             }
@@ -87,29 +81,7 @@ public class Runner
         return courses;
 	}
 	
-	public static double calculateSD(HashMap<String, Double> courses)
-    {
-        double sum = 0.0, standardDeviation = 0.0;
-        int length = courses.size();
-
-        for (Map.Entry<String, Double> oneCourse : courses.entrySet()) 
-        {
-        	sum += oneCourse.getValue();
-        }
-
-        double mean = sum/length;
-
-        for (Map.Entry<String, Double> oneCourse : courses.entrySet()) 
-        {
-            standardDeviation += Math.pow(oneCourse.getValue() - mean, 2);
-        }
-
-        return Math.sqrt(standardDeviation/length);
-    }
 	
-	public void printCoursesData(HashMap<String, Double> courses) 
-	{
-		
 	
-	}
+	
 }
